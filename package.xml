@@ -1,0 +1,8 @@
+<package name="musicController">
+	<run>
+		<command name="musicController" class="iristk.app.musicController.MusicControllerSystem"/>
+	</run>
+	<classpath>
+		<src path="src" output="bin"/>
+	</classpath>
+</package>

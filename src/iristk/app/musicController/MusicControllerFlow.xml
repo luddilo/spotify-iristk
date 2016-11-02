@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flow name="MusicControllerFlow" package="iristk.app.musicController" 
+	initial="Start"	xmlns="iristk.flow" xmlns:p="iristk.flow.param" xmlns:dialog="iristk.flow.DialogFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="iristk.flow flow.xsd iristk.flow.DialogFlow DialogFlow.xsd">
+	
+	<param name="musicController" type="MusicControllerSystem.MusicController"/>    
+	
+	<state id="Start">
+		<onentry>
+			<dialog:say>What do you want to listen to?</dialog:say>
+			<goto state="Request"/>
+		</onentry>
+	</state>
+	
+	<state id="Request" extends="Dialog">
+		
+		<onentry>
+			<dialog:listen/>
+		</onentry>
+		
+		<onevent name="sense.user.speak" cond="event?:sem:control">
+			<exec>String control = asString(event:sem:control)</exec>
+			<if cond="control == 'pause'">
+				<exec>
+					musicController.pause()
+				</exec>
+				<dialog:say>Ok, pausing</dialog:say>
+			</if>
+			<if cond="control == 'play'">
+				<exec>
+					musicController.play()
+				</exec>
+				<dialog:say>Ok, playing</dialog:say>
+			</if>
+			<if cond="control == 'volumeUp' || control == 'volumeDown'">
+				<dialog:say>Sorry, you have to do that yourself</dialog:say>
+			</if>
+			<reentry/>
+		</onevent>
+		
+		<onevent name="sense.user.speak" cond="event?:sem:status">
+			<dialog:say>This is <expr>musicController.status()</expr></dialog:say>
+			<reentry/>
+		</onevent>
+		
+		<onevent name="sense.user.speak" cond="event?:sem:music">
+			<exec>
+				String song = asString(event:sem:music);
+				musicController.play(song)
+			</exec>
+			<dialog:say>Here is some <expr>song</expr></dialog:say>
+			<reentry/>
+		</onevent>
+		
+		<onevent name="sense.user.speak" cond="event?:sem:help">
+			<dialog:say>You can ask for pop, rock or inspirational music. You can also ask me to stop or start music, or to adjust volume</dialog:say>
+			<reentry/>
+		</onevent>
+	</state>
+	
+	<state id="Dialog">
+		<onevent name="sense.user.silence">
+			<dialog:say>I am sorry, I didn't hear anything.</dialog:say>
+			<reentry/>
+		</onevent>
+		<onevent name="sense.user.speak">
+			<dialog:say>I am sorry, I didn't get that.</dialog:say>
+			<reentry/>
+		</onevent>
+	</state>
+
+</flow>

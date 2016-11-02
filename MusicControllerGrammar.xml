@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar xml:lang="en-US" version="1.0" root="root"
+	xmlns="http://www.w3.org/2001/06/grammar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/2001/06/grammar http://www.iristk.net/xml/srgs.xsd" tag-format="semantics/1.0">
+
+  <rule id="root" scope="public">
+      <one-of>
+      	<item>
+      		<ruleref uri="#music"/>
+      		<tag>out.music = rules.music</tag>
+      	</item>
+     	<item>
+      		<ruleref uri="#control"/>
+      		<tag>out.control = rules.control</tag>
+      	</item>
+      	<item>
+      		<ruleref uri="#status"/>
+      		<tag>out.status = "status"</tag>
+      	</item>
+      	<item>
+      		<ruleref uri="#help"/>
+      		<tag>out.help = "help"</tag>
+      	</item>
+      </one-of>
+  </rule>
+  
+  <rule id="music">
+ 	<item repeat="0-1">
+      <one-of>
+      		<item>Play some</item>
+      		<item>I want to hear some</item>
+      		<item>Play</item>
+      		<item>I want to hear</item>
+      	</one-of>
+      </item>
+ 	 <one-of>
+	 	 <item>rock<tag>out = "rock"</tag></item>
+	     <item>pop<tag>out = "pop"</tag></item>
+	     <item>inspirational<tag>out = "inspirational"</tag></item>
+	 </one-of>
+  </rule>
+  
+   <rule id="control">
+ 	 <one-of>
+	 	 <item>play<tag>out = "play"</tag></item>
+	     <item>pause<tag>out = "pause"</tag></item>
+	     <item>stop<tag>out = "pause"</tag></item>
+	     <item>silence<tag>out = "pause"</tag></item>
+	     <item>volume up<tag>out = "volumeUp"</tag></item>
+	     <item>volume down<tag>out = "volumeDown"</tag></item>
+	 </one-of>
+  </rule>
+  
+  <rule id="status">
+ 	 <one-of>
+	 	 <item>what is playing</item>
+	     <item>what song is this</item>
+	     <item>what is this song</item>
+	     <item>who is playing</item>
+	     <item>who is this</item>
+	     <item>what is this</item>
+	 </one-of>
+  </rule>
+  
+  <rule id="help">
+ 	 <one-of>
+	 	 <item>help</item>
+	     <item>I don't understand</item>
+	     <item>help please</item>
+	 </one-of>
+  </rule>
+</grammar>
