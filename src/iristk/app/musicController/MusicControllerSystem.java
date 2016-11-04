@@ -26,68 +26,6 @@ import iristk.cfg.SRGSGrammar;
 import iristk.flow.FlowModule;
 
 public class MusicControllerSystem {
-
-	public class MusicController {
-		public MusicController() throws Exception {
-			
-		}
-		
-		String _getUrl(String urlToRead) throws Exception {
-		      StringBuilder result = new StringBuilder();
-		      URL url = new URL(urlToRead);
-		      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		      conn.setRequestMethod("GET");
-		      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		      String line;
-		      while ((line = rd.readLine()) != null) {
-		         result.append(line);
-		      }
-		      rd.close();
-		      return result.toString();
-		   }
-		
-		public void play(){
-			try {
-				_getUrl("http://192.168.1.165:3000/play/");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Error");
-			}
-		}
-		
-		public void play(String song) {
-			try {
-				_getUrl("http://192.168.1.165:3000/play/" + song);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Error");
-			}
-		}
-		
-		public void pause() {
-			try {
-				_getUrl("http://192.168.1.165:3000/pause");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Error");
-			}
-		}
-		
-		public String status() {
-			try {
-				return _getUrl("http://192.168.1.165:3000/status");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Error");
-				return "Error, can't contact music server";
-			}
-		}
-		
-	}
 	
 	public MusicControllerSystem() throws Exception {
 		
@@ -111,7 +49,7 @@ public class MusicControllerSystem {
 		
 		// Add the music controller
 		
-		MusicController musicController = new MusicController();
+		MusicController musicController = new MusicController("192.168.0.3:3000");
 		
 		// Add the flow
 		system.addModule(new FlowModule(new MusicControllerFlow(

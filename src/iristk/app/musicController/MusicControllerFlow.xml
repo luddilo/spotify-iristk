@@ -3,7 +3,7 @@
 	initial="Start"	xmlns="iristk.flow" xmlns:p="iristk.flow.param" xmlns:dialog="iristk.flow.DialogFlow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="iristk.flow flow.xsd iristk.flow.DialogFlow DialogFlow.xsd">
 	
-	<param name="musicController" type="MusicControllerSystem.MusicController"/>    
+	<param name="musicController" type="MusicController"/>    
 	
 	<state id="Start">
 		<onentry>
@@ -64,7 +64,7 @@
 			<reentry/>
 		</onevent>
 		<onevent name="sense.user.speak">
-			<dialog:say>I am sorry, I didn't get that.</dialog:say>
+			<dialog:say>I am sorry, what was that?</dialog:say>
 			<reentry/>
 		</onevent>
 	</state>

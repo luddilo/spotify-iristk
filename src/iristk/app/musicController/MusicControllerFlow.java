@@ -11,12 +11,12 @@ import static iristk.flow.State.*;
 
 public class MusicControllerFlow extends iristk.flow.Flow {
 
-	private MusicControllerSystem.MusicController musicController;
+	private MusicController musicController;
 
 	private void initVariables() {
 	}
 
-	public MusicControllerSystem.MusicController getMusicController() {
+	public MusicController getMusicController() {
 		return this.musicController;
 	}
 
@@ -27,7 +27,7 @@ public class MusicControllerFlow extends iristk.flow.Flow {
 	}
 
 
-	public MusicControllerFlow(MusicControllerSystem.MusicController musicController) {
+	public MusicControllerFlow(MusicController musicController) {
 		this.musicController = musicController;
 		initVariables();
 	}
@@ -311,7 +311,7 @@ public class MusicControllerFlow extends iristk.flow.Flow {
 					eventResult = EVENT_CONSUMED;
 					EXECUTION: {
 						iristk.flow.DialogFlow.say state10 = new iristk.flow.DialogFlow.say();
-						state10.setText("I am sorry, I didn't get that.");
+						state10.setText("I am sorry, what was that?");
 						if (!flowThread.callState(state10, new FlowEventInfo(currentState, event, new XMLLocation(new File("C:\\Users\\ludvig\\IrisTK\\app\\musicController\\src\\iristk\\app\\musicController\\MusicControllerFlow.xml"), 66, 36)))) {
 							eventResult = EVENT_ABORTED;
 							break EXECUTION;
